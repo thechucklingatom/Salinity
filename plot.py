@@ -39,9 +39,10 @@ with open('data.csv', 'w', newline='') as csvFile:
 		#read data n times seperated by ~1 sec
 		for i in range(1, n):
 			ser.write(b'1')
+			ser.flushInput()
 			line = ser.readline()
 			timeList.append(time.clock())
-			data = [float(val) for val in line.split()][0]
+			data = [float(val) for val in line.split()][0] * (5/1023)
 			dataList.append(data)
 			print(data)
 			zzz(1)
