@@ -9,7 +9,11 @@ void setup()
  
 void loop()
 {
+  inbyte = 0;
   inbyte = Serial.read();
+  //while(inbyte != 1){
+    //inbyte = Serial.read();
+  //}
   // read A0
   val1 = analogRead(0);
   // print to serial
