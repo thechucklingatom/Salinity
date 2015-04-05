@@ -1,5 +1,6 @@
 int val = 0; // variable to store value read at analog pin 3
 int inbyte;
+int val1;
 void setup()
 {
   // initialize serial comms
@@ -10,7 +11,7 @@ void loop()
 {
   inbyte = Serial.read();
   // read A0
-  int val1 = analogRead(0);
+  val1 = analogRead(0);
   // print to serial
   Serial.print(val1);
   Serial.print("\n");
