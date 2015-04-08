@@ -20,6 +20,8 @@ dataList = []
 timeList.append(startTime)
 dataList.append(dataInital)
 
+loopControl = True
+
 #if the file opens
 with open('data.csv', 'w', newline='') as csvFile:
 	#tells how to write to the file
@@ -35,18 +37,25 @@ with open('data.csv', 'w', newline='') as csvFile:
 		n = 1
 		if userInput == 'r':
 			#if they want to read ask them how many times
-			n = int(input("How many seconds do you want to read? "))
+			n = int(input("How many minutes do you want to read? "))
 		#read data n times seperated by ~1 sec
-		for i in range(1, n):
+		for i in range(1, n+1):
 			ser.flushInput()
 			ser.write(b'1')
 			#ser.flushInput()
-			line = ser.readline()
+			while loopControl:
+				try:
+					line = ser.readline()
+					data = [float(val) for val in line.split()][0] * (5/1023)
+					loopControl = False
+				except:
+					loopControl = True
 			timeList.append(time.clock())
-			data = [float(val) for val in line.split()][0] * (5/1023)
 			dataList.append(data)
+			loopControl = True
 			print(data)
-			zzz(1)
+			if i != n:
+				zzz(1 * 60)
 		#check if thy want to quit
 		userInput = input("enter q to quit, r to read: ")
 
