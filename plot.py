@@ -1,5 +1,5 @@
 import serial
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import time
 from time import sleep as zzz
 import csv
@@ -18,7 +18,10 @@ dataInital = [float(val) for val in line.split()][0]
 timeList = []
 dataList = []
 timeList.append(startTime)
-dataList.append(dataInital)
+dataList.append(dataInital* (5/1023))
+plt.plot(timeList,dataList)
+plt.show(block=False)
+
 
 loopControl = True
 
@@ -52,6 +55,9 @@ with open('data.csv', 'w', newline='') as csvFile:
 					loopControl = True
 			timeList.append(time.clock())
 			dataList.append(data)
+			plt.clf()
+			plt.plot(timeList,dataList)
+			plt.draw()
 			loopControl = True
 			print(data)
 			if i != n:
