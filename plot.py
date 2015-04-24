@@ -38,11 +38,13 @@ with open('data.csv', 'w+', newline='') as csvFile:
     while userInput != 'q':
     	#initialize n
         n = 1
+        numReads = 1
         if userInput == 'r':
             #if they want to read ask them how many times
             n = int(input("How many minutes do you want to read? "))
+            numReads = int(input("How many times per minutes would you like to read "))
 	#read data n times seperated by ~1 sec
-        for i in range(1, n+1):
+        for i in range(1, (n*numReads)+1):
             ser.flushInput()
             #ser.write(b'1')
             #ser.flushInput()
@@ -60,9 +62,9 @@ with open('data.csv', 'w+', newline='') as csvFile:
             plt.draw()
             loopControl = True
             print(data)
-            if i != n:
+            if i != n * numReads:
                 #zzz(1 * 60)
-                plt.pause(1*60)
+                plt.pause(60/numReads)
         #check if thy want to quit
         userInput = input("enter q to quit, r to read: ")
     #read final time
