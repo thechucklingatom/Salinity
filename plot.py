@@ -5,7 +5,12 @@ from time import sleep as zzz
 import csv
 
 #serial port for the aruduino at whatever frequency it was set to
-ser = serial.Serial('/dev/ttyACM0', 9600)
+#linux
+#ser = serial.Serial('/dev/ttyACM0', 9600)
+#windows
+#ser = serial.Serial('COM3', 9600)
+#test for both
+ser = serial.Serial(2, 9600)
 
 #gets the starting time for the program
 startTime = time.clock()
@@ -22,11 +27,13 @@ dataList.append(dataInital* (5/1023))
 plt.plot(timeList,dataList)
 plt.show(block=False)
 
-
 loopControl = True
 
+#ask for the file name
+filename = input("What would you like to call the file? ")
+
 #if the file opens
-with open('data.csv', 'w+', newline='') as csvFile:
+with open(filename + '.csv', 'w+', newline='') as csvFile:
     #tells how to write to the file
     testFile = csv.writer(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     #testFile.writerow([dataInital, "%f" % (startTime)])
