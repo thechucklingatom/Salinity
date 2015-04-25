@@ -6,13 +6,13 @@ import csv
 
 #serial port for the aruduino at whatever frequency it was set to
 #linux
-#ser = serial.Serial('/dev/ttyACM0', 9600)
+ser = serial.Serial('/dev/ttyACM0', 9600)
 #windows
 #ser = serial.Serial('COM3', 9600)
-#test for both
-ser = serial.Serial(2, 9600)
+#test for both, didnt work
+#ser = serial.Serial(2, 9600)
 
-#gets the starting time for the program
+#gets the starting time for the program change to time.time()
 startTime = time.clock()
 #starting data point
 line = ser.readline()
