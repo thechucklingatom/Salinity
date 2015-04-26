@@ -6,14 +6,12 @@ import csv
 
 #serial port for the aruduino at whatever frequency it was set to
 #linux
-ser = serial.Serial('/dev/ttyACM0', 9600)
+#ser = serial.Serial('/dev/ttyACM0', 9600)
 #windows
-#ser = serial.Serial('COM3', 9600)
-#test for both, didnt work
-#ser = serial.Serial(2, 9600)
+ser = serial.Serial('COM3', 9600)
 
-#gets the starting time for the program change to time.time()
-startTime = time.clock()
+#gets the starting time for the program change time.clock() to time.time()
+startTime = time.time()
 #starting data point
 line = ser.readline()
 #converts to a number
@@ -59,10 +57,13 @@ with open(filename + '.csv', 'w+', newline='') as csvFile:
                 try:
                     line = ser.readline()
                     data = [float(val) for val in line.split()][0] * (5/1023)
-                    loopControl = False
+                    if data <= .5 or data > 3.4:
+                        loopControl = True
+                    else:
+                        loopControl = False
                 except:
                     loopControl = True
-            timeList.append(time.clock())
+            timeList.append(time.time() - startTime)
             dataList.append(data)
             plt.clf()
             plt.plot(timeList,dataList)
@@ -75,8 +76,8 @@ with open(filename + '.csv', 'w+', newline='') as csvFile:
         #check if thy want to quit
         userInput = input("enter q to quit, r to read: ")
     #read final time
-    finalTime = time.clock()
-    timeList.append(finalTime)
+    finalTime = time.time()
+    timeList.append(finalTime - startTime)
     #add it all to the csv file
     testFile.writerows(zip(dataList, timeList))
     testFile.writerow(["No data",timeList[-1]])
