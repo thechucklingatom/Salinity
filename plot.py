@@ -107,3 +107,4 @@ with open(filename + '.csv', 'w+', newline='') as csvFile:
     testFile.writerow(["No data",timeList[-1],formula1List[-1]])
     #print running time for debug.
     print("%f:%f" % (startTime, finalTime))
+input("Don't forget to save the graph, press enter to exit: ")
